@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestNG Group Suite" verbose="2">
+    <test name="User Login Tests" preserve-order="false">
+        <groups>
+            <define name = "Group1">
+                <include name="failedTests"/>
+            </define>
+            <define name = "Group2">
+                <include name="brokenTests"/>
+            </define>
+            <define name = "Group3">
+                <include name="checkinTests"/>
+            </define>
+            <define name = "Group4">
+                <include name="gridTests"/>
+            </define>
+            <define name = "Group5">
+                <include name="saucelabsTests"/>
+            </define>
+            <define name = "SuperGroup">
+                <include name="Group1"/>
+                <include name="Group2"/>
+                <include name="Group3"/>
+                <include name="Group4"/>
+                <include name="Group5"/>
+            </define>
+            <run>
+                <include name="SuperGroup" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.issoft.training.tests.CreateAccountTest">
+                   <methods>
+                       <include name=".*Test.*" />
+                   </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
