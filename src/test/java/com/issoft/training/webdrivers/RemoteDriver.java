@@ -35,9 +35,9 @@ public class RemoteDriver {
                     "enableVideo", true
             ));
             capabilities.setCapability("timeouts", Map.<String, Object>of(
-                    "implicit", 15000,
-                    "pageLoad", 20000,
-                    "script", 30000
+                    "implicit", 60000,
+                    "pageLoad", 120000,
+                    "script", 90000
             ));
             if (url.contains(SAUCE_LABS_HUB)){
                 capabilities.setCapability("sauce:options", Map.<String, Object>of(

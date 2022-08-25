@@ -37,11 +37,7 @@ public class AllureListener extends TestBase implements ITestListener {
         String browserName = cap.getBrowserName();
         String browserVersion = (String)cap.getCapability("browserVersion");
         System.out.println( "browserName :: "+browserName + "\nbrowserVersion :: " + browserVersion );
-        //driver
-        Object testClass = iTestResult.getInstance();
-        WebDriver driver = ((TestBase) testClass).getDriver();
-        // Allure ScreenShotRobot
-        if(driver instanceof WebDriver){
+        if(driver != null){
             System.out.println("Screenshot captured for failed test " + getTestMethodName(iTestResult));
             saveScreenshotPNG(driver);
         }

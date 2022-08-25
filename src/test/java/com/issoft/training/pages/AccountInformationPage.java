@@ -48,6 +48,12 @@ public class AccountInformationPage {
     @FindBy(xpath = "//*[@id='city']")
     private WebElement companyCity;
 
+    @FindBy(xpath = "//*[@id='id_state']")
+    private WebElement addressState;
+
+    @FindBy(xpath = "//*[@id='postcode']")
+    private WebElement addressPostcode;
+
     @FindBy(xpath = "//*[@id='id_country']")
     private WebElement addressCountry;
 
@@ -89,6 +95,11 @@ public class AccountInformationPage {
     public void inputAddressCompanyName(String companyname) { companyName.sendKeys(companyname); }
     public void inputCompanyAddress1(String address) { companyAddress1.sendKeys(address); }
     public void inputCompanyCity(String city) { companyCity.sendKeys(city); }
+    public void inputAddressState(String state) {
+        Select select = new Select(addressState);
+        select.selectByVisibleText(state);
+    }
+    public void inputAddressPostCode(String postcode) { addressPostcode.sendKeys(postcode); }
     public void inputCompanyCountry(String country) {
         Select select = new Select(addressCountry);
         select.selectByVisibleText(country);
