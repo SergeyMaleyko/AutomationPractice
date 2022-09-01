@@ -1,9 +1,13 @@
 package com.issoft.training.pages;
 
+import com.issoft.training.config.ConfProperties;
+import com.issoft.training.utility.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import static com.issoft.training.config.ConfProperties.getProperty;
 
 public class LoginAccountPage {
 
@@ -20,8 +24,11 @@ public class LoginAccountPage {
     @FindBy(css = "#SubmitLogin > span")
     private WebElement loginAccountBtn;
 
-    @FindBy(css = "div.header_user_info > a.logout")
-    private WebElement SignOutBtn;
+    @FindBy(css = ".logout")
+    private WebElement signOutBtn;
+
+    @FindBy(css = ".login")
+    private WebElement signInBtn;
 
     public void inputLoginEmail(String login) { emailField.sendKeys(login); }
 
@@ -29,5 +36,14 @@ public class LoginAccountPage {
 
     public void clickLoginAccountBtn(){ loginAccountBtn.click(); }
 
-    public void clickSignOutBtn(){ SignOutBtn.click(); }
+    public void clickSignOutBtn(){ signOutBtn.click(); }
+
+    public void loginToAccount(WebDriver driver) {
+        driver.get(getProperty("url_automationpractice_loginpage"));
+        if(driver.getTitle().equalsIgnoreCase(Constants.MY_ACCOUNT_TITLE)) {
+            clickSignOutBtn(); }
+        inputLoginEmail(ConfProperties.getProperty("email"));
+        inputLoginPasswd(ConfProperties.getProperty("test_passwd"));
+        clickLoginAccountBtn();
+    }
 }

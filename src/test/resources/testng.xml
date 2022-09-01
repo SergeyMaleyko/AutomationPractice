@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Automation Practice TestNG Suite" verbose="2">
-    <test thread-count="2" name="AUTOMATION_PRACTICE_SHOPPING_TESTS" preserve-order="false">
+    <test thread-count="4" name="AUTOMATION_PRACTICE_SHOPPING_TESTS" preserve-order="false">
         <groups>
             <define name = "Group1">
                 <include name="checkinTests"/>
@@ -11,14 +11,12 @@
             </define>
             <define name = "Group3">
                 <include name="loginTests"/>
-                <include name="wishlistTests"/>
-                <include name="cartTests"/>
             </define>
             <define name = "Group4">
-                <include name="gridTests"/>
+                <include name="wishlistTests"/>
             </define>
             <define name = "Group5">
-                <include name="saucelabsTests"/>
+                <include name="cartTests"/>
             </define>
             <define name = "SuperGroup">
                 <include name="Group1"/>
@@ -28,53 +26,11 @@
                 <include name="Group5"/>
             </define>
             <run>
-                <include name="Group3" />
-                <include name="Group4" />
-                <include name="Group5" />
+                <include name="SuperGroup"/>
             </run>
         </groups>
         <classes>
             <class name="com.issoft.training.tests.AutomationPracticeShoppingTests"/>
-        </classes>
-    </test>
-    <test name="SELENIUM_GRID-CHROME-LOGIN_TEST">
-        <parameter name="webdriver" value="GRID"/>
-        <parameter name="browser" value="CHROME"/>
-        <parameter name="version" value="default"/>
-        <parameter name="platform" value="default"/>
-        <parameter name="test_name" value="default"/>
-        <classes>
-            <class name="com.issoft.training.tests.RemoteDriverLoginTests"/>
-        </classes>
-    </test>
-    <test name="SELENIUM_GRID-FIREFOX-LOGIN_TEST">
-        <parameter name="webdriver" value="GRID"/>
-        <parameter name="browser" value="FIREFOX"/>
-        <parameter name="version" value="default"/>
-        <parameter name="platform" value="default"/>
-        <parameter name="test_name" value="default"/>
-        <classes>
-            <class name="com.issoft.training.tests.RemoteDriverLoginTests"/>
-        </classes>
-    </test>
-    <test name="SAUCELABS_WIN11-CHROME-LOGIN_TEST">
-        <parameter name="webdriver" value="SAUCELABS"/>
-        <parameter name="browser" value="CHROME"/>
-        <parameter name="version" value="104"/>
-        <parameter name="platform" value="Windows 11"/>
-        <parameter name="test_name" value="SAUCELABS_WIN11-CHROME-LOGIN_TEST"/>
-        <classes>
-            <class name="com.issoft.training.tests.RemoteDriverLoginTests"/>
-        </classes>
-    </test>
-    <test name="SAUCELABS_WIN10-FIREFOX-LOGIN_TEST">
-        <parameter name="webdriver" value="SAUCELABS"/>
-        <parameter name="browser" value="FIREFOX"/>
-        <parameter name="version" value="103"/>
-        <parameter name="platform" value="Windows 10"/>
-        <parameter name="test_name" value="SAUCELABS_WIN10-FIREFOX-LOGIN_TEST"/>
-        <classes>
-            <class name="com.issoft.training.tests.RemoteDriverLoginTests"/>
         </classes>
     </test>
 </suite>

@@ -1,5 +1,6 @@
 package com.issoft.training.pages;
 
+import com.issoft.training.config.ConfProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -110,4 +111,25 @@ public class AccountInformationPage {
         addressAlias.sendKeys(alias);
     }
     public void clickSubmitAccountBtn() { submitAccountBtn.click(); }
+
+    public void populateAccountInfo() {
+        clickCustomerGenderBtn();
+        inputCustomerFirstName(ConfProperties.getProperty("test_firstname"));
+        inputCustomerLastName(ConfProperties.getProperty("test_lastname"));
+        inputCustomerPasswd(ConfProperties.getProperty("test_passwd"));
+        inputUniformDays(ConfProperties.getProperty("test_days"));
+        inputUniformMonth(ConfProperties.getProperty("test_month"));
+        inputUniformYear(ConfProperties.getProperty("test_year"));
+        inputAddressFirstName(ConfProperties.getProperty("test_firstname"));
+        inputAddressLastName(ConfProperties.getProperty("test_lastname"));
+        inputAddressCompanyName(ConfProperties.getProperty("test_companyname"));
+        inputCompanyAddress1(ConfProperties.getProperty("test_address"));
+        inputCompanyCity(ConfProperties.getProperty("test_city"));
+        inputAddressState(ConfProperties.getProperty("test_state"));
+        inputAddressPostCode(ConfProperties.getProperty("test_postcode"));
+        inputCompanyCountry(ConfProperties.getProperty("test_country"));
+        inputPhoneMobile(ConfProperties.getProperty("test_phone"));
+        inputAddressAlias(ConfProperties.getProperty("test_alias"));
+        clickSubmitAccountBtn();
+    }
 }

@@ -7,14 +7,14 @@ import java.util.Properties;
 
 public class ConfProperties {
     protected static FileInputStream fileInputStream;
-    protected static Properties PROPERTIES;
+    protected static Properties properties;
     private static final String propFile = "src/test/resources/conf.properties";
 
     static {
         try {
             fileInputStream = new FileInputStream(propFile);
-            PROPERTIES = new Properties();
-            PROPERTIES.load(fileInputStream);
+            properties = new Properties();
+            properties.load(fileInputStream);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -27,13 +27,13 @@ public class ConfProperties {
      * returns a config value
      */
     public static String getProperty(String key) {
-        return PROPERTIES.getProperty(key); }
+        return properties.getProperty(key); }
 
     public static void setProperty(String key, String value) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(propFile);
-            PROPERTIES.setProperty(key, value);
-            PROPERTIES.store(fileOutputStream, null);
+            properties.setProperty(key, value);
+            properties.store(fileOutputStream, null);
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -14,7 +14,15 @@ public class MyAccountPage{
     @FindBy(xpath = "//*[@class='lnk_wishlist']/a[@title='My wishlists']")
     private WebElement myWishListBtn;
 
-    public boolean isDisplayedMyWishListBtn(){ return myWishListBtn.isDisplayed(); }
+    @FindBy(xpath = "//*[@id='center_column']/h1")
+    private WebElement myAccountPageTitle;
+
+    @FindBy(xpath = "//*[@class='logout']")
+    private WebElement myAccountSignOut;
+
+    public boolean isDisplayedMyAccountPageTitle(){ return myAccountPageTitle.isDisplayed(); }
 
     public void clickMyWishListBtn(){ myWishListBtn.click(); }
+
+    public void clickSignOutBtn(){ myAccountSignOut.click(); }
 }
