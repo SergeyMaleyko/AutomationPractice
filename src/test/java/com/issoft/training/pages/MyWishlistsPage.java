@@ -1,26 +1,25 @@
 package com.issoft.training.pages;
 
 import com.issoft.training.utility.Constants;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import java.time.Duration;
 
 import static com.issoft.training.config.ConfProperties.getProperty;
 
 public class MyWishlistsPage {
+    private final WebDriver driver;
     private static final By LAYER_CART_POPUP_SELECTOR = By.xpath("//*[@id='layer_cart']");
+    private static final By ADD_TO_CART_BTN_SELECTOR = By.xpath("//*[@id='add_to_cart']");
     private static final int EXPLICITLY_WAIT_TIMEOUT = 30;
     private static final int EXPLICITLY_TIMEOUT_POLLING = 100;
 
     public MyWishlistsPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -61,17 +60,16 @@ public class MyWishlistsPage {
     public void clickMyWishListBtn(){ wishlistBtn.click(); }
     public void clickCloseProductAddedAlert(){ productAddedAlertClose.click(); }
     public void clickDeleteMyWishlistBtn(){ deleteMyWishlistBtn.click(); }
-    public boolean isDisplayedAddToCartBtn(){ return addToCartBtn.isDisplayed(); }
     public void clickAddToCartBtn(){ addToCartBtn.click(); }
     public void clickContinueShoppingBtn(){ continueShoppingBtn.click(); }
     public String getMyShoppingCartQuantity(){ return myShoppingCartQuantity.getText(); }
 
-    public void addProductsToCart(WebDriver driver){
+    public void addProductsToCart(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(EXPLICITLY_WAIT_TIMEOUT), Duration.ofMillis(EXPLICITLY_TIMEOUT_POLLING));
         // add 3 different products to cart
         for(int i = 1; i <= Integer.parseInt(Constants.TOTAL_PRODUCTS_IN_CART); i++){
             driver.findElement(By.xpath("//*[@id='best-sellers_block_right']//li["+i+"]/a")).click();
-            Assert.assertTrue(isDisplayedAddToCartBtn());
+            wait.until(ExpectedConditions.visibilityOfElementLocated(ADD_TO_CART_BTN_SELECTOR));
             clickAddToCartBtn();
             //Firefox's exception: Element could not be scrolled into view
             wait.until(ExpectedConditions.visibilityOfElementLocated(LAYER_CART_POPUP_SELECTOR));
@@ -81,20 +79,20 @@ public class MyWishlistsPage {
         System.out.println("Number of products in Shopping Cart: " + getMyShoppingCartQuantity());
     }
 
-    public void addProductToAutoWishlist(WebDriver driver){
+    public void addProductToAutoWishlist(){
         clickFirstProductDetailsLink();
         clickMyWishListBtn();
         clickCloseProductAddedAlert();
         driver.navigate().to(getProperty("url_my_wishlist_page"));
     }
 
-    public void addProductToWishlist(WebDriver driver){
+    public void addProductToWishlist(){
         inputWishListName(Constants.MY_WISHLIST_NAME);
         clickSubmitWishlistBtn();
-        addProductToAutoWishlist(driver);
+        addProductToAutoWishlist();
     }
 
-    public void clearMyWishlist(WebDriver driver){
+    public void clearMyWishlist(){
         clickDeleteMyWishlistBtn();
         Alert alert = driver.switchTo().alert();
         alert.accept();

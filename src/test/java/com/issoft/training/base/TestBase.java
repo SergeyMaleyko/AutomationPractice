@@ -1,5 +1,6 @@
 package com.issoft.training.base;
 
+import com.issoft.training.pages.*;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -15,20 +16,28 @@ import static com.issoft.training.webdriver.Driver.*;
 public class TestBase {
     private static final ThreadLocal<WebDriver> webDriver = new ThreadLocal<>(); //make the driver thread safe when running tests in parallel
     protected WebDriver driver = webDriver.get();
+    protected CreateAccountPage createAccountPage;
+    protected AccountInformationPage accountInformationPage;
+    protected LoginAccountPage loginAccountPage;
+    protected MyAccountPage myAccountPage;
+    protected MyWishlistsPage myWishlistsPage;
 
     @BeforeClass(groups = {"checkinTests","accountTests","loginTests","wishlistTests","cartTests"})
-    public void setUp(){
-        driver = configWebDriver();
+    public void setUp() {
+        this.driver = configWebDriver();
+        createAccountPage = new CreateAccountPage(driver);
+        accountInformationPage = new AccountInformationPage(driver);
+        loginAccountPage = new LoginAccountPage(driver);
+        myAccountPage = new MyAccountPage(driver);
+        myWishlistsPage = new MyWishlistsPage(driver);
     }
 
     @AfterClass(groups = {"checkinTests","accountTests","loginTests","wishlistTests","cartTests"})
-    public void tearDown(){
+    public void tearDown() {
         System.out.println("quiting Web Driver");
         driver.quit();
         driver = null;
     }
-
-    public WebDriver getDriver() { return this.driver = getInstance(); }
 
     public static void getScreenShotFile(WebDriver driver, String filename) {
         TakesScreenshot ts = (TakesScreenshot)driver;

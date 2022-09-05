@@ -20,10 +20,6 @@
             </define>
             <define name = "SuperGroup">
                 <include name="Group1"/>
-                <include name="Group2"/>
-                <include name="Group3"/>
-                <include name="Group4"/>
-                <include name="Group5"/>
             </define>
             <run>
                 <include name="SuperGroup"/>

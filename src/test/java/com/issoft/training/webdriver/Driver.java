@@ -14,12 +14,11 @@ import java.util.Map;
 
 public class Driver {
     private static final String SAUCE_LABS_HUB = "saucelabs.com:443/wd/hub";
-    private static final String SAUCE_LABS_BUILD_ID = "SauceLabs_BuildId_Training";
 
     private volatile static WebDriver driverInstance;
 
     // Singleton pattern
-    public static WebDriver getInstance() {
+    private static WebDriver getInstance() {
         if (driverInstance != null) {
             return driverInstance;
         }
@@ -68,7 +67,7 @@ public class Driver {
             ));
             if (url.contains(SAUCE_LABS_HUB)){
                 capabilities.setCapability("sauce:options", Map.<String, Object>of(
-                        "build", SAUCE_LABS_BUILD_ID,
+                        "build", ConfProperties.getProperty("ap_saucelabs_build_id"),
                         "name", test_name
                 ));
             } driver = new RemoteWebDriver(new URL(url), capabilities);

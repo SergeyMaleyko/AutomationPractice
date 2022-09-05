@@ -10,8 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 import static com.issoft.training.config.ConfProperties.getProperty;
 
 public class LoginAccountPage {
+    private final WebDriver driver;
 
     public LoginAccountPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -36,12 +38,14 @@ public class LoginAccountPage {
 
     public void clickLoginAccountBtn(){ loginAccountBtn.click(); }
 
-    public void clickSignOutBtn(){ signOutBtn.click(); }
-
-    public void loginToAccount(WebDriver driver) {
+    public void clickSignOutBtnIfLoggedOn(){
         driver.get(getProperty("url_automationpractice_loginpage"));
         if(driver.getTitle().equalsIgnoreCase(Constants.MY_ACCOUNT_TITLE)) {
-            clickSignOutBtn(); }
+            signOutBtn.click(); }
+    }
+
+    public void loginToAccount() {
+        clickSignOutBtnIfLoggedOn();
         inputLoginEmail(ConfProperties.getProperty("email"));
         inputLoginPasswd(ConfProperties.getProperty("test_passwd"));
         clickLoginAccountBtn();

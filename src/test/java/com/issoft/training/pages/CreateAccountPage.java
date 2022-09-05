@@ -8,11 +8,12 @@ import org.openqa.selenium.support.PageFactory;
 
 import static com.issoft.training.base.TestBase.getNewEmailAddress;
 import static com.issoft.training.base.TestBase.getScreenShotFile;
-import static com.issoft.training.config.ConfProperties.getProperty;
 
 public class CreateAccountPage {
+    private final WebDriver driver;
 
     public CreateAccountPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -30,10 +31,7 @@ public class CreateAccountPage {
         createAccountBtn.click();
     }
 
-    public void createAccount(WebDriver driver, LoginAccountPage loginAccountPage){
-        driver.get(getProperty("url_automationpractice_loginpage"));
-        if(driver.getTitle().equalsIgnoreCase(Constants.MY_ACCOUNT_TITLE)){
-            loginAccountPage.clickSignOutBtn(); }
+    public void createAccount(LoginAccountPage loginAccountPage){
         inputEmail(getNewEmailAddress());
         getScreenShotFile(driver, Constants.INPUT_EMAIL_SCREEN);
         clickCreateAccountBtn();

@@ -17,13 +17,11 @@ public class AllureListener extends TestBase implements ITestListener {
         return iTestResult.getMethod().getConstructorOrMethod().getName();
     }
 
-    // Screen attachment for Allure
     @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] saveScreenshotPNG(WebDriver driver){
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
 
-    // Text attachment for Allure
     @Attachment(value = "{0}", type = "text/plain")
     public static String saveTextLog(String message){
         return message;
@@ -56,7 +54,7 @@ public class AllureListener extends TestBase implements ITestListener {
     @Override
     public void onStart(ITestContext iTestContext){
         System.out.println("I am in onStart method " + iTestContext.getName());
-        iTestContext.setAttribute("WebDriver",getDriver());
+        iTestContext.setAttribute("WebDriver", driver);
     }
     @Override
     public void onTestSuccess(ITestResult iTestResult){

@@ -3,7 +3,6 @@ package com.issoft.training.tests;
 import com.issoft.training.base.TestBase;
 import com.issoft.training.config.ConfProperties;
 import com.issoft.training.listener.AllureListener;
-import com.issoft.training.pages.*;
 import com.issoft.training.utility.Constants;
 import io.qameta.allure.*;
 import org.testng.Assert;
@@ -14,12 +13,6 @@ import org.testng.annotations.Test;
 @Epic("Regression tests")
 @Feature(value = "Automation practice - Shopping tests")
 public class AutomationPracticeShoppingTests extends TestBase {
-    // page objects
-    CreateAccountPage createAccountPage;
-    AccountInformationPage accountInformationPage;
-    LoginAccountPage loginAccountPage;
-    MyAccountPage myAccountPage;
-    MyWishlistsPage myWishlistsPage;
 
     @Test(groups = {"accountTests", "checkinTests"},
             description = "Verify the ability to create an account.")
@@ -28,11 +21,8 @@ public class AutomationPracticeShoppingTests extends TestBase {
     @Story("Story name: Account creation.")
     public void accountCreateTest() {
         // test AP-1
-        createAccountPage = new CreateAccountPage(driver);
-        accountInformationPage = new AccountInformationPage(driver);
-        myAccountPage = new MyAccountPage(driver);
-        loginAccountPage = new LoginAccountPage(driver);
-        createAccountPage.createAccount(driver, loginAccountPage);
+        loginAccountPage.clickSignOutBtnIfLoggedOn();
+        createAccountPage.createAccount(loginAccountPage);
         accountInformationPage.populateAccountInfo();
         // Expected result: Account was created
         Assert.assertTrue(myAccountPage.isDisplayedMyAccountPageTitle());
@@ -41,14 +31,12 @@ public class AutomationPracticeShoppingTests extends TestBase {
 
     @Test( groups = {"loginTests", "checkinTests"},
             description = "Verify the ability to login an account.")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.BLOCKER)
     @Description("Test Description: Verify the ability to login an account.")
     @Story("Story name: Account login.")
     public void accountLoginTest() {
         // test AP-2
-        loginAccountPage = new LoginAccountPage(driver);
-        myAccountPage = new MyAccountPage(driver);
-        loginAccountPage.loginToAccount(driver);
+        loginAccountPage.loginToAccount();
         // Expected result: You were able to login
         Assert.assertTrue(myAccountPage.isDisplayedMyAccountPageTitle());
     }
@@ -60,12 +48,9 @@ public class AutomationPracticeShoppingTests extends TestBase {
     @Story("Story name: Add a product to Wishlist.")
     public void addProductToAutoWishlistTest() {
         // test AP-3
-        loginAccountPage = new LoginAccountPage(driver);
-        myAccountPage = new MyAccountPage(driver);
-        myWishlistsPage = new MyWishlistsPage(driver);
-        loginAccountPage.loginToAccount(driver);
+        loginAccountPage.loginToAccount();
         myAccountPage.clickMyWishListBtn();
-        myWishlistsPage.addProductToAutoWishlist(driver);
+        myWishlistsPage.addProductToAutoWishlist();
         // Expected result: Wishlist was created automatically and your product is in the list
         Assert.assertTrue(myWishlistsPage.isDisplayedMyWishListByName());
     }
@@ -77,12 +62,9 @@ public class AutomationPracticeShoppingTests extends TestBase {
     @Story("Story name: Add a product to Wishlist.")
     public void addProductToWishlistTest() {
         // test AP-4
-        loginAccountPage = new LoginAccountPage(driver);
-        myAccountPage = new MyAccountPage(driver);
-        myWishlistsPage = new MyWishlistsPage(driver);
-        loginAccountPage.loginToAccount(driver);
+        loginAccountPage.loginToAccount();
         myAccountPage.clickMyWishListBtn();
-        myWishlistsPage.addProductToWishlist(driver);
+        myWishlistsPage.addProductToWishlist();
         // Expected result: Product was added to your Wishlist
         Assert.assertTrue(myWishlistsPage.isDisplayedMyWishListByName());
     }
@@ -94,13 +76,10 @@ public class AutomationPracticeShoppingTests extends TestBase {
     @Story("Story name: Add products to Cart.")
     public void addProductsToCart() {
         // test AP-5
-        myAccountPage = new MyAccountPage(driver);
-        myWishlistsPage = new MyWishlistsPage(driver);
-        loginAccountPage = new LoginAccountPage(driver);
-        loginAccountPage.loginToAccount(driver);
+        loginAccountPage.loginToAccount();
         myAccountPage.clickMyWishListBtn();
-        myWishlistsPage.addProductsToCart(driver);
+        myWishlistsPage.addProductsToCart();
         // Expected result: All 3 products are in the cart and total is correct
-        Assert.assertEquals(myWishlistsPage.getMyShoppingCartQuantity(),Constants.TOTAL_PRODUCTS_IN_CART);
+        Assert.assertEquals(myWishlistsPage.getMyShoppingCartQuantity(), Constants.TOTAL_PRODUCTS_IN_CART);
     }
 }
