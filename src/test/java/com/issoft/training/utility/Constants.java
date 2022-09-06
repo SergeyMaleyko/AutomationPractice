@@ -1,11 +1,11 @@
 package com.issoft.training.utility;
 
 public class Constants {
-    public static Integer IMPLICITLY_WAIT_TIMEOUT = 20;
-    public static Integer PAGE_LOAD_TIMEOUT = 30;
-    public static Integer POLLING = 100;
-    // create account
-    public static String INPUT_EMAIL_SCREEN = "input_email_screen.png";
-    public static String TITLE_OF_ACCOUNT_PAGE = "Login - My Store";
-    public static String HEADER_PERSONAL_INFO_PAGE_TEXT = "Your personal information";
+    public static final Integer IMPLICITLY_WAIT_TIMEOUT = 90;
+    public static final Integer PAGE_LOAD_TIMEOUT = 120;
+    public static final Integer SCRIPT_WAIT_TIMEOUT = 60;
+    public static final String INPUT_EMAIL_SCREEN = "input_email_screen.png";
+    public static final String MY_WISHLIST_NAME = "My wishlist";
+    public static final String MY_ACCOUNT_TITLE = "My account - My Store";
+    public static final String TOTAL_PRODUCTS_IN_CART = "3";
 }
