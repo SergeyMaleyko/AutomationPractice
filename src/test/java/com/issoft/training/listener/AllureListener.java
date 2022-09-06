@@ -1,6 +1,7 @@
 package com.issoft.training.listener;
 
 import com.issoft.training.base.TestBase;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.OutputType;
@@ -11,7 +12,10 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class AllureListener extends TestBase implements ITestListener {
+import java.io.ByteArrayInputStream;
+import java.util.UUID;
+
+public class AllureListener implements ITestListener {
 
     private static String getTestMethodName(ITestResult iTestResult){
         return iTestResult.getMethod().getConstructorOrMethod().getName();
@@ -30,17 +34,20 @@ public class AllureListener extends TestBase implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult){
         System.out.println("I am in onTestFailure method " + getTestMethodName(iTestResult) + " failed");
+        WebDriver driver = TestBase.getDriver();
         // get browser name and version
         Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
         String browserName = cap.getBrowserName();
         String browserVersion = (String)cap.getCapability("browserVersion");
         System.out.println( "browserName :: "+browserName + "\nbrowserVersion :: " + browserVersion );
-        if(driver != null){
+
+        if(driver instanceof WebDriver){
             System.out.println("Screenshot captured for failed test " + getTestMethodName(iTestResult));
-            saveScreenshotPNG(driver);
+            //saveScreenshotPNG(driver);
+            Allure.addAttachment(UUID.randomUUID().toString(), new ByteArrayInputStream(saveScreenshotPNG(driver)));
         }
         // save a log on Allure
-        saveTextLog(getTestMethodName(iTestResult) + "failed and screenshot taken!");
+        saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
     }
 
     @Override
@@ -54,7 +61,7 @@ public class AllureListener extends TestBase implements ITestListener {
     @Override
     public void onStart(ITestContext iTestContext){
         System.out.println("I am in onStart method " + iTestContext.getName());
-        iTestContext.setAttribute("WebDriver", driver);
+        iTestContext.setAttribute("WebDriver", TestBase.getDriver());
     }
     @Override
     public void onTestSuccess(ITestResult iTestResult){

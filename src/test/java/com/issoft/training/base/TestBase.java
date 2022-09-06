@@ -15,7 +15,7 @@ import static com.issoft.training.webdriver.Driver.*;
 
 public class TestBase {
     private static final ThreadLocal<WebDriver> webDriver = new ThreadLocal<>(); //make the driver thread safe when running tests in parallel
-    protected WebDriver driver = webDriver.get();
+    protected static WebDriver driver = webDriver.get();
     protected CreateAccountPage createAccountPage;
     protected AccountInformationPage accountInformationPage;
     protected LoginAccountPage loginAccountPage;
@@ -31,6 +31,8 @@ public class TestBase {
         myAccountPage = new MyAccountPage(driver);
         myWishlistsPage = new MyWishlistsPage(driver);
     }
+
+    public static WebDriver getDriver(){ return driver; }
 
     @AfterClass(groups = {"checkinTests","accountTests","loginTests","wishlistTests","cartTests"})
     public void tearDown() {

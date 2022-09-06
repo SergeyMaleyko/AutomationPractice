@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Automation Practice TestNG Suite" verbose="2">
+    <listeners>
+        <listener class-name="com.issoft.training.listener.AllureListener"></listener>
+    </listeners>
     <test thread-count="4" name="AUTOMATION_PRACTICE_SHOPPING_TESTS" preserve-order="false">
         <groups>
             <define name = "Group1">
@@ -22,7 +25,10 @@
                 <include name="Group1"/>
             </define>
             <run>
-                <include name="SuperGroup"/>
+                <include name="Group2"/>
+                <include name="Group3"/>
+                <include name="Group4"/>
+                <include name="Group5"/>
             </run>
         </groups>
         <classes>

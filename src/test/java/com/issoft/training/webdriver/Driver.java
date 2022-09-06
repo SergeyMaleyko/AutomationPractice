@@ -18,7 +18,7 @@ public class Driver {
     private volatile static WebDriver driverInstance;
 
     // Singleton pattern
-    private static WebDriver getInstance() {
+    public static WebDriver getInstance() {
         if (driverInstance != null) {
             return driverInstance;
         }
